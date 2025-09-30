@@ -234,7 +234,18 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-          Learning-based methods, such as imitation learning (IL) and reinforcement learning (RL), can produce excel control policies over challenging agile robot tasks, such as sports robot. However, no existing work has harmonized learning-based policy with model-based methods to reduce training complexity and ensure the safety and stability for agile badminton robot control. In this paper, we introduce Hamlet, a novel hybrid control system for agile badminton robots. Specifically, we propose a model-based strategy for chassis locomotion which provides a base for arm policy. We introduce a physics-informed “IL+RL” training framework for learning-based arm policy. In this train framework, a model-based strategy with privileged information is used to guide arm policy training during both IL and RL phases. In addition, we train the critic model during IL phase to alleviate the performance drop issue when transitioning from IL to RL. We present results on our self-engineered badminton robot, achieving 94.5% success rate against the serving machine and 90.7% success rate against human players. Our system can be easily generalized to other agile mobile manipulation tasks e.g., agile catching, table tennis.           </p>
+          In widely adopted one-step reinforcement learning (RL) frameworks for table tennis robots, 
+          the selection of hitting position is often constrained, yielding only locally optimal solutions. 
+          Here, we propose a global hitting-positing optimization method within the one-step RL paradigm. 
+          By introducing the action space with a single scalar dimension and incorporating dynamics-based 
+          prediction, our approach enables the search for globally optimal strokes within the robot’s physical
+           limits. Across diverse task settings, the proposed method consistently outperforms baseline methods 
+           while requiring comparable training time. We further introduce virtual sampling for the first time 
+           in table tennis robot RL training, and demonstrate its effectiveness in improving sample and 
+           training efficiency for arbitrary targets task. In particular, we employ the rarely used collaborative 
+           robot in table tennis tasks and demonstrate its potential. In addition, we release an open-source 
+           trapezoidal velocity trajectory planning module tailored for table tennis robot strokes, aiming to 
+           facilitate future research in the field.           </p>
         </div>
       </div>
     </div>
@@ -257,11 +268,14 @@
         </figure>
         
         <!-- 文字描述部分 -->
-        <div class="content has-text-left" style="margin-top: 1.5rem;">
+        <div class="content has-text-justified" style="margin-top: 1.5rem;">
           <p>
-            We first detect and predict the incoming shuttlecock's trajectory, then drive the chassis with a model‑based PD controller to a reachable base position. 
-            The predicted trajectory is rigidly transformed—translated by that base position and rotated according to the chassis orientation—into the local arm coordinate frame. 
-            Finally, a learning‑based policy uses the transformed trajectory to generate precise end‑effector velocity commands for accurate hitting.
+            The overall control pipeline of the robot: Detect the ball in 200 Hz until 
+            the ball arrives the net; Get the policy's output by ball's state at net 
+            plane and target landing position; Determine the hitting position by 
+            scaled-OHPS; Conduct the inverse kinematics and trapezoidal joint 
+            trajectory planning base on policy's output; Safety check in Cartesian space; 
+            Execution if the planned trajectory is safe.
           </p>
         </div>
       </div>
